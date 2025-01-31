@@ -1,5 +1,3 @@
-package com.pinnacle.student.model;
-
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -24,10 +22,10 @@ public class Student {
     @Column
     private String address;
     
-    @Column(unique = true) // Make contactNo unique
+    @Column
     private String contactNo;
     
-    @Column(unique = true) // Make parentContactNo unique
+    @Column
     private String parentContactNo;
     
     @Column

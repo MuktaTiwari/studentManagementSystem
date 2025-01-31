@@ -78,6 +78,7 @@
                         </div>
                     </div>
 
+                    <!-- Course Dropdown -->
                     <div class="form-group row mb-3">
                         <label for="course" class="col-3 col-form-label font-weight-bold">Course</label>
                         <div class="col-9">
@@ -92,6 +93,7 @@
                         </div>
                     </div>
 
+                    <!-- Fees Dropdown based on course -->
                     <div class="form-group row mb-3">
                         <label for="fees" class="col-3 col-form-label font-weight-bold">Fees</label>
                         <div class="col-9">
@@ -135,6 +137,7 @@
         </div>
     </div>
 
+    <!-- JavaScript to calculate balance fees and update fees dropdown -->
     <script>
         function calculateBalance() {
             var fees = parseFloat(document.getElementById('fees').value) || 0;
@@ -178,52 +181,54 @@
 
         function validateNumber(event) {
             let input = event.target;
-            input.value = input.value.replace(/[^0-9]/g, ''); 
+            input.value = input.value.replace(/[^0-9]/g, ''); // Allow only numbers
         }
 
         function validatePaidFees(event) {
             let input = event.target;
-            input.value = input.value.replace(/[^0-9.]/g, ''); 
+            input.value = input.value.replace(/[^0-9.]/g, ''); // Allow only numbers and decimal points
             if (parseFloat(input.value) < 0) {
-                input.value = ''; 
+                input.value = ''; // Prevent negative numbers
             }
         }
 
         document.addEventListener("DOMContentLoaded", function () {
-        let courseDropdown = document.getElementById("course");
-        let feesDropdown = document.getElementById("fees");
-        let paidFeesInput = document.getElementById("paidFees");
-        let contactNoInput = document.getElementById("contactNo");
-        let parentContactNoInput = document.getElementById("parentContactNo");
+    // Get elements
+    let courseDropdown = document.getElementById("course");
+    let feesDropdown = document.getElementById("fees");
+    let paidFeesInput = document.getElementById("paidFees");
+    let contactNoInput = document.getElementById("contactNo");
+    let parentContactNoInput = document.getElementById("parentContactNo");
 
-        paidFeesInput.disabled = true;
+    paidFeesInput.disabled = true;
 
-        courseDropdown.addEventListener("change", function () {
-            paidFeesInput.disabled = this.value === "";
-        });
+    courseDropdown.addEventListener("change", function () {
+        paidFeesInput.disabled = this.value === "";
+    });
 
-        function validateNumberInput(event) {
+    function validateNumberInput(event) {
+        let input = event.target;
+        input.value = input.value.replace(/[^0-9]/g, ''); // Allow only numbers
+        
+        if (input.value.length > 10) {
+            input.value = input.value.slice(0, 10); // Limit to 10 digits
+        }
+    }
+
+        function validatePaidFees(event) {
             let input = event.target;
-            input.value = input.value.replace(/[^0-9]/g, ''); 
-            
-            if (input.value.length > 10) {
-                input.value = input.value.slice(0, 10); 
+            input.value = input.value.replace(/[^0-9.]/g, ''); // Allow only numbers and decimals
+
+            if (parseFloat(input.value) < 0) {
+                input.value = ''; // Prevent negative numbers
             }
         }
 
-            function validatePaidFees(event) {
-                let input = event.target;
-                input.value = input.value.replace(/[^0-9.]/g, ''); 
-
-                if (parseFloat(input.value) < 0) {
-                    input.value = ''; 
-                }
-            }
-
-            contactNoInput.addEventListener("input", validateNumberInput);
-            parentContactNoInput.addEventListener("input", validateNumberInput);
-            paidFeesInput.addEventListener("input", validatePaidFees);
-        });
+        // Attach event listeners
+        contactNoInput.addEventListener("input", validateNumberInput);
+        parentContactNoInput.addEventListener("input", validateNumberInput);
+        paidFeesInput.addEventListener("input", validatePaidFees);
+    });
 
     </script>
 </body>

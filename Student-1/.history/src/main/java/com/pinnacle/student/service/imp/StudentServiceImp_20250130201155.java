@@ -46,11 +46,14 @@ public class StudentServiceImp implements StudentService {
 
 	@Override
 	public void updateStudent(Student student) {
+		
+		// TODO Auto-generated method stub
 		repo.save(student);
 	}
 
 	@Override
 	public void deleteStudentById(Long id) {
+		// TODO Auto-generated method stub
 	
 		repo.delete(getStudentById(id));
 	}
@@ -67,9 +70,9 @@ public class StudentServiceImp implements StudentService {
 	
 	
 	public Map<String, List<Student>> getStudentsGroupedByCourse() {
-	    List<Student> allStudents = repo.findAll(); 
+	    List<Student> allStudents = repo.findAll(); // Fetch all students
 	    return allStudents.stream()
-	                      .collect(Collectors.groupingBy(Student::getCourse)); 
+	                      .collect(Collectors.groupingBy(Student::getCourse)); // Group students by course
 	}
 
 	

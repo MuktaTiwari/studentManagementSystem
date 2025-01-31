@@ -67,9 +67,9 @@ public class StudentServiceImp implements StudentService {
 	
 	
 	public Map<String, List<Student>> getStudentsGroupedByCourse() {
-	    List<Student> allStudents = repo.findAll(); 
+	    List<Student> allStudents = repo.findAll(); // Fetch all students
 	    return allStudents.stream()
-	                      .collect(Collectors.groupingBy(Student::getCourse)); 
+	                      .collect(Collectors.groupingBy(Student::getCourse)); // Group students by course
 	}
 
 	
