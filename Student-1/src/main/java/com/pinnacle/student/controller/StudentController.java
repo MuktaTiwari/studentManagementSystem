@@ -39,9 +39,13 @@ public class StudentController {
         try {
             Student savedStudent = studentService.saveStudent(student);
             Long id = savedStudent.getId();
-            attributes.addAttribute("message", "Record with id: '" + id + "' is saved successfully!");
+            attributes.addFlashAttribute("message", "Record with id: '" + id + "' is saved successfully!");
         } catch (Exception e) {
-            attributes.addAttribute("message", "Error saving student: " + e.getMessage());
+            if (e.getMessage().contains("Duplicate entry")) {
+                attributes.addFlashAttribute("message", "Error: Duplicate contact number is not allowed.");
+                return "redirect:/student/register"; 
+            }
+            attributes.addFlashAttribute("message", "Error saving student: " + e.getMessage());
         }
         return "redirect:/student/getAllStudents";  
     }
